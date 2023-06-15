@@ -1,6 +1,10 @@
-# Current game mechanics 6/15/23 @ 1:15
-# Goal need to make a better start phase
-# Want enemy cards to be "invisible" until it is time for them to go
+# Current game mechanics 6/15/23 @ 1:26pm
+
+# Added an algorithm to determine the winners
+# Included time delays and clear screens to make the game look better and run better
+
+# Need to make a better start phase
+# Want enemy cards to be "invisible" until it is time for them to go (kinda did this with clear screen but could be better)
 # Need to add in money and bets and a way to actually win and lose
 
 import random
@@ -210,6 +214,11 @@ round = 1
 while round < 3:
     for player in Player.ai:
         draw(player, shuffled_deck)
+        if player == user:
+            clear_screen()
+            print("Your Hand:")
+            card_Creation(user)
+            time.sleep(0.5)
     round += 1
 
 # Print every player's hands/scores
@@ -219,6 +228,7 @@ print()
 print()
 # user's turn to draw some cards!
 clear_screen()
+print("Your Hand:")
 card_Creation(user)
 print(user.hand_value)
 print("It is your turn! Enter D for Draw | S for Stay")
@@ -252,22 +262,66 @@ for ai in Player.ai[1:]:
     clear_screen()
     print(f"It is {ai}'s turn!")
     time.sleep(0.75)
+    card_Creation(ai)
+    time.sleep(0.5)
     while ai.hand_value < 21:
         if ai.hand_value < 18:
             draw(ai, shuffled_deck)
-            time.sleep(0.75)
+            clear_screen()
+            print(f"{ai}'s Hand:")
+            card_Creation(ai)
+            time.sleep(0.5)
         else:
             break
     print(ai)
+    clear_screen()
+    print(f"{ai}'s Hand:")
+
     card_Creation(ai)
     time.sleep(0.75)
     print(ai.hand_value)
-    time.sleep(3)
+    time.sleep(2.5)
 
+player_scores = []
+
+
+clear_screen()
 for player in Player.ai:
     player.score = 21 - player.hand_value
-    if player.score < 0:
-        player.score = 21
-    print(f"{player} has a score of {player.score}")
+    if player.score >= 0:
+        print(f"{player} has a score of {player.score}")
+        player_scores.append(player.score)
+
+print(player_scores)
+winning_value = min(player_scores)
+winners = []
+
+for player in Player.ai:
+    if player.score == winning_value:
+        print(f"{player} has the winning score")
+        winners.append(player)
 
 
+if len(winners) > 2:
+    # print(f"There are {len(winners)} winners")
+    print("The winners are ")
+    for name in winners:
+        if name == winners[-1]:
+            print(f"and {name} are the winners!")
+        else:
+            print(f"{name}, ", end=" " )
+    print("Winners will be splitting the money")
+elif len(winners) == 2:
+    # print(f"There are {len(winners)} winners")
+    print("The winners are ")
+    for name in winners:
+        if name == winners[-1]:
+            print(f"and {name} are the winners!")
+        else:
+            print(f"{name} ", end=" ")
+    print("Winners will be splitting the money")
+else:
+    # print(f"There is 1 winner")
+    for name in winners:
+        print(f"{name} is the winner!")
+    print("They get all the money!")
