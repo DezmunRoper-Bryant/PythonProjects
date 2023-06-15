@@ -1,6 +1,18 @@
 # Current game mechanics 6/15/23 @ 1:15
-import random
+# Goal need to make a better start phase
+# Want enemy cards to be "invisible" until it is time for them to go
+# Need to add in money and bets and a way to actually win and lose
 
+import random
+import subprocess
+import sys
+import time
+
+
+def clear_screen():
+    operating_system = sys.platform
+    if operating_system == 'win32':
+        subprocess.run('cls', shell=True)
 
 class Card:
     all_cards = []
@@ -43,6 +55,7 @@ class Player:
         self.id = id_num  # indicator for what player it is (Player 2, Player 3, etc)
         self.hand = []
         self.hand_value = 0
+        self.score = 21
         Player.ai.append(self)
 
     def __repr__(self):
@@ -205,6 +218,9 @@ print()
 
 print()
 # user's turn to draw some cards!
+clear_screen()
+card_Creation(user)
+print(user.hand_value)
 print("It is your turn! Enter D for Draw | S for Stay")
 choice = ""
 while user.hand_value < 21:
@@ -216,6 +232,8 @@ while user.hand_value < 21:
 
         if choice == "D":
             draw(user, shuffled_deck)
+            print(f"You Drew {user.hand[-1]}")
+            time.sleep(1)
             card_Creation(user)
             print(f"Value: {user.hand_value}")
             if user.hand_value > 21:
@@ -229,3 +247,27 @@ while user.hand_value < 21:
     # print(user.hand_value)
     if exit_outer_loop:
         break
+
+for ai in Player.ai[1:]:
+    clear_screen()
+    print(f"It is {ai}'s turn!")
+    time.sleep(0.75)
+    while ai.hand_value < 21:
+        if ai.hand_value < 18:
+            draw(ai, shuffled_deck)
+            time.sleep(0.75)
+        else:
+            break
+    print(ai)
+    card_Creation(ai)
+    time.sleep(0.75)
+    print(ai.hand_value)
+    time.sleep(3)
+
+for player in Player.ai:
+    player.score = 21 - player.hand_value
+    if player.score < 0:
+        player.score = 21
+    print(f"{player} has a score of {player.score}")
+
+
