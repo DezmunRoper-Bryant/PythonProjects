@@ -1,3 +1,4 @@
+# Current game mechanics 6/15/23 @ 1:15
 import random
 
 
