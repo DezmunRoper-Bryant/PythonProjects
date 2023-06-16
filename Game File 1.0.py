@@ -10,7 +10,6 @@ import subprocess
 import sys
 import time
 
-
 def clear_screen():
     operating_system = sys.platform
     if operating_system == 'win32':
