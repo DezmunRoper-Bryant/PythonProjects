@@ -1,10 +1,8 @@
-# Current game mechanics 6/15/23 @ 1:26pm
+# Current game mechanics 6/16/23 @ 10:50am
 
-# Added an algorithm to determine the winners
-# Included time delays and clear screens to make the game look better and run better
+# Adjusted some loops too slow the game down
 
-# Need to make a better start phase
-# Want enemy cards to be "invisible" until it is time for them to go (kinda did this with clear screen but could be better)
+# Need to adjust the game mechanics so that it is actually black jack
 # Need to add in money and bets and a way to actually win and lose
 
 import random
@@ -235,7 +233,6 @@ print("It is your turn! Enter D for Draw | S for Stay")
 choice = ""
 while user.hand_value < 21:
     choice = ""
-    exit_outer_loop = False
 
     while choice not in ["D", "S"]:
         choice = input(">")
@@ -247,16 +244,24 @@ while user.hand_value < 21:
             card_Creation(user)
             print(f"Value: {user.hand_value}")
             if user.hand_value > 21:
-                print("Your hand is a bust ")
+                time.sleep(1)
+                print("Your hand is a bust")
+                time.sleep(1)
+                break
+            elif user.hand_value == 21:
+                time.sleep(1)
+                print("You scored a 21 and can no longer draw.")
+                time.sleep(1)
                 break
         elif choice == "S":
             print("You decided to stay")
-            exit_outer_loop = True
             break
+
     # card_Creation(user)
     # print(user.hand_value)
-    if exit_outer_loop:
+    if choice == "S":
         break
+
 
 for ai in Player.ai[1:]:
     clear_screen()
@@ -271,6 +276,8 @@ for ai in Player.ai[1:]:
             print(f"{ai}'s Hand:")
             card_Creation(ai)
             time.sleep(0.5)
+        elif ai.hand_value > 21:
+            print(f"{ai}'s hand is a bust. They are out.")
         else:
             break
     print(ai)
@@ -292,14 +299,14 @@ for player in Player.ai:
         print(f"{player} has a score of {player.score}")
         player_scores.append(player.score)
 
-print(player_scores)
-winning_value = min(player_scores)
 winners = []
-
-for player in Player.ai:
-    if player.score == winning_value:
-        print(f"{player} has the winning score")
-        winners.append(player)
+print(player_scores)
+if len(player_scores) > 0:
+    winning_value = min(player_scores)
+    for player in Player.ai:
+        if player.score == winning_value:
+            print(f"{player} has the winning score")
+            winners.append(player)
 
 
 if len(winners) > 2:
@@ -309,7 +316,7 @@ if len(winners) > 2:
         if name == winners[-1]:
             print(f"and {name} are the winners!")
         else:
-            print(f"{name}, ", end=" " )
+            print(f"{name}, ", end=" ")
     print("Winners will be splitting the money")
 elif len(winners) == 2:
     # print(f"There are {len(winners)} winners")
@@ -320,6 +327,8 @@ elif len(winners) == 2:
         else:
             print(f"{name} ", end=" ")
     print("Winners will be splitting the money")
+elif len(winners) == 0:
+    print("All players bust and no one wins")
 else:
     # print(f"There is 1 winner")
     for name in winners:
