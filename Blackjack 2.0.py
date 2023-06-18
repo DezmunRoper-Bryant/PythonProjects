@@ -388,7 +388,7 @@ while game_on:
         else:
             print(f"You won your money back plus an additional {(bet * winnings) - bet}!")
     else:
-        print("YOU LOSE DUMBASS!")
+        print("YOU LOSE!!")
 
     clear_screen()
 
