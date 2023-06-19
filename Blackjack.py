@@ -2,18 +2,24 @@
 
 # Adjusted some loops too slow the game down
 
+# Changing the game so the player doesn't pick the number of plays. I am making the game a player vs dealer.
+# Getting rid of the player being able to pick the value of the ace. There is a systematic way to pick it.
 # Need to adjust the game mechanics so that it is actually black jack
 # Need to add in money and bets and a way to actually win and lose
+# Want to also me about to have the user choose if they want traditional BlackJack (where the player is able to play themselves)
+# or quick BlackJack where the game is instant and the AI plays for them.
 
 import random
 import subprocess
 import sys
 import time
 
+
 def clear_screen():
     operating_system = sys.platform
     if operating_system == 'win32':
         subprocess.run('cls', shell=True)
+
 
 class Card:
     all_cards = []
@@ -261,7 +267,6 @@ while user.hand_value < 21:
     if choice == "S":
         break
 
-
 for ai in Player.ai[1:]:
     clear_screen()
     print(f"It is {ai}'s turn!")
@@ -290,7 +295,6 @@ for ai in Player.ai[1:]:
 
 player_scores = []
 
-
 clear_screen()
 for player in Player.ai:
     player.score = 21 - player.hand_value
@@ -306,7 +310,6 @@ if len(player_scores) > 0:
         if player.score == winning_value:
             print(f"{player} has the winning score")
             winners.append(player)
-
 
 if len(winners) > 2:
     # print(f"There are {len(winners)} winners")
@@ -333,3 +336,5 @@ else:
     for name in winners:
         print(f"{name} is the winner!")
     print("They get all the money!")
+
+
