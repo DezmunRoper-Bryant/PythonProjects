@@ -1,9 +1,9 @@
 # Current game mechanics 6/18/23 @ 7:50pm
 
-# Hid the dealer's second card
+# Hid the dealer's second card800
 
 # When it is time for the player to draw, the need to be able to see one of the dealer's cards
-# Want to create a card that has the properties of the back of a card to "hide" a card
+# Want to create a card that has the properties of the back of a card to "hide" a card500
 
 # Logic idea. Play player is able to see the dealer's first card (the 0th index of their hand array)✅
 
@@ -14,8 +14,8 @@
 # Need to add in money and bets and a way to actually win and lose ✅
 # Might need to something like chips to ensure players spend a multiple
 # Maybe need to implement a way to save the money you have for future use
-# Want to also me about to have the user choose if they want traditional BlackJack (where the player is able to play themselves)
-# or quick BlackJack where the game is instant and the AI plays for them.
+# Want to also me about to have the user choose if they want traditional Current Game Versions (where the player is able to play themselves)
+# or quick Current Game Versions where the game is instant and the AI plays for them.
 
 import random
 import subprocess
@@ -207,7 +207,7 @@ while game_on:
     while stay:
         clear_screen()
         print(f"Your Account Balance: ${money}")
-        print("How much would you like to bet?")
+        print("How much would you like to bet250 250 ?")
         boolean = True
         while boolean:
             bet = input("> ")
@@ -261,7 +261,7 @@ while game_on:
         round += 1
 
     # Print every player's hands/scores
-    # printPlayers()
+    # printPlayers()5
     # print()
 
     print()

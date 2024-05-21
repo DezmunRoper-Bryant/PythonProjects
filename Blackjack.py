@@ -6,8 +6,8 @@
 # Getting rid of the player being able to pick the value of the ace. There is a systematic way to pick it.
 # Need to adjust the game mechanics so that it is actually black jack
 # Need to add in money and bets and a way to actually win and lose
-# Want to also me about to have the user choose if they want traditional BlackJack (where the player is able to play themselves)
-# or quick BlackJack where the game is instant and the AI plays for them.
+# Want to also me about to have the user choose if they want traditional Current Game Versions (where the player is able to play themselves)
+# or quick Current Game Versions where the game is instant and the AI plays for them.
 
 import random
 import subprocess
